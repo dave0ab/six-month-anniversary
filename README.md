@@ -4,7 +4,7 @@ Single-file, mobile-first anniversary site. Just `index.html`, so there's no bui
 
 ## Customize
 At the top of the `<script>` in `index.html`:
-- `herName`: her nickname (ፅዬ)
+- `herName`: her nickname (ፂዬ)
 - `fromName`: your signature
 - `startDate`: the day you got together (drives the live counter)
 
