@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="am">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#2a0a1c">
+  <meta name="description" content="ለአንቺ ብቻ የተሰራ ትንሽ ስጦታ 💌">
+  <meta property="og:title" content="ለአንቺ ብቻ 💌">
+  <meta property="og:description" content="ክፈቺው… 🥹❤️">
+  <title>ለአንቺ ብቻ 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@400;600;700;800&family=Noto+Serif+Ethiopic:wght@400;600;700&family=Great+Vibes&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#2a0a1c; --bg2:#5c1438; --bg3:#a3285e;
+      --pink:#ff6fa5; --pink2:#ff9cc2; --rose:#ffd6e6; --gold:#ffd89a;
+      --ink:#5a1b37; --paper:#fff8f3;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      min-height:100svh; overflow-x:hidden; color:#fff;
+      font-family:"Noto Sans Ethiopic",Nunito,system-ui,sans-serif;
+      background:radial-gradient(120% 80% at 50% 0%,var(--bg3) 0%,var(--bg2) 40%,var(--bg1) 100%) fixed;
+      -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent;
+      user-select:none; -webkit-user-select:none;
+    }
+    button{font:inherit;border:0;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+    /* ---------- background layers ---------- */
+    #stars,#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+    #stars{z-index:0} #fx{z-index:50}
+    .hearts-bg{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+    .hearts-bg span{position:absolute;bottom:-60px;opacity:0;animation:rise var(--d) linear infinite;animation-delay:var(--delay);font-size:var(--s);filter:blur(var(--b))}
+    @keyframes rise{0%{transform:translateY(0) translateX(0) rotate(0);opacity:0}10%{opacity:.55}50%{transform:translateY(-55vh) translateX(var(--sway)) rotate(15deg)}90%{opacity:.4}100%{transform:translateY(-115vh) translateX(0) rotate(-10deg);opacity:0}}
+
+    /* ---------- layout ---------- */
+    main{position:relative;z-index:5;min-height:100svh;display:grid;place-items:center;
+      padding:calc(env(safe-area-inset-top) + 20px) 18px calc(env(safe-area-inset-bottom) + 20px)}
+    .screen{display:none;width:100%;max-width:440px;text-align:center}
+    .screen.active{display:block;animation:enter .8s cubic-bezier(.2,.8,.2,1) both}
+    .screen.leaving{display:block;animation:leave .45s ease both}
+    @keyframes enter{from{opacity:0;transform:translateY(24px) scale(.97);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+    @keyframes leave{to{opacity:0;transform:translateY(-16px) scale(.98);filter:blur(6px)}}
+
+    .glass{
+      position:relative;border-radius:30px;padding:30px 22px;
+      background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.22);
+      box-shadow:0 30px 80px rgba(20,0,10,.45),inset 0 1px 0 rgba(255,255,255,.25);
+      backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+    }
+    .script{font-family:"Great Vibes",cursive;font-weight:400;color:var(--gold);
+      text-shadow:0 0 18px rgba(255,200,120,.45);line-height:1}
+    .kicker{font:800 11px Nunito,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--rose);opacity:.85}
+    h1{font-size:clamp(28px,8.5vw,38px);font-weight:800;line-height:1.35;margin:12px 0 10px}
+    h2{font-size:clamp(23px,7vw,30px);font-weight:800;line-height:1.45;margin:10px 0}
+    p.lead{font-size:16px;line-height:1.95;color:#ffe9f1}
+    .muted{color:rgba(255,225,238,.7);font-size:14px;line-height:1.9}
+    .shine{background:linear-gradient(90deg,#fff 0%,var(--rose) 30%,var(--gold) 50%,var(--rose) 70%,#fff 100%);
+      background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 4s linear infinite}
+    @keyframes shine{to{background-position:200% center}}
+
+    .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      min-height:56px;padding:14px 30px;border-radius:999px;font-weight:800;font-size:17px;color:#fff;
+      background:linear-gradient(135deg,#ff8ab6,#ff4d8d 55%,#e0336f);
+      box-shadow:0 12px 30px rgba(255,60,130,.45),inset 0 1px 0 rgba(255,255,255,.4);
+      transition:transform .2s ease}
+    .btn:active{transform:scale(.95)}
+    .btn.pulse{animation:pulse 2s ease-in-out infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 12px 30px rgba(255,60,130,.45),0 0 0 0 rgba(255,111,165,.55)}50%{box-shadow:0 12px 30px rgba(255,60,130,.45),0 0 0 16px rgba(255,111,165,0)}}
+    .btn.ghost{background:rgba(255,255,255,.12);box-shadow:none;border:1px solid rgba(255,255,255,.3);font-size:15px;min-height:48px}
+    .hint{margin-top:16px;font-size:12px;color:rgba(255,220,235,.6);animation:blink 2.4s ease-in-out infinite}
+    @keyframes blink{50%{opacity:.35}}
+
+    /* ---------- 1. envelope ---------- */
+    .env-wrap{perspective:900px;margin:34px auto 26px;width:min(78vw,300px);aspect-ratio:3/2;position:relative;cursor:pointer;animation:bob 3.2s ease-in-out infinite}
+    @keyframes bob{50%{transform:translateY(-10px) rotate(-1deg)}}
+    .env{position:absolute;inset:0;border-radius:14px;background:linear-gradient(160deg,#ffe3ec,#ffc2d7);box-shadow:0 25px 60px rgba(0,0,0,.4)}
+    .env-flap{position:absolute;left:0;right:0;top:0;height:62%;transform-origin:top;z-index:4;
+      clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(180deg,#ffb3cd,#ff97bb);transition:transform .8s cubic-bezier(.6,0,.2,1),z-index 0s .4s}
+    .env-front{position:absolute;inset:0;z-index:3;border-radius:14px;
+      background:linear-gradient(160deg,#ffd0e0,#ffadc9);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%)}
+    .env-paper{position:absolute;left:8%;right:8%;top:10%;bottom:8%;z-index:2;border-radius:8px;background:var(--paper);
+      display:grid;place-items:center;color:var(--ink);font-family:"Great Vibes",cursive;font-size:30px;transition:transform .9s cubic-bezier(.2,.8,.2,1) .35s}
+    .seal{position:absolute;left:50%;top:56%;z-index:5;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;
+      display:grid;place-items:center;font-size:24px;background:radial-gradient(circle at 35% 30%,#ff6f9f,#c2185b);
+      box-shadow:0 6px 14px rgba(120,0,40,.5),inset 0 -3px 6px rgba(0,0,0,.25);transition:transform .4s,opacity .4s;animation:beat 1.4s ease-in-out infinite}
+    .env-wrap.open{animation:none}
+    .env-wrap.open .seal{transform:scale(0);opacity:0}
+    .env-wrap.open .env-flap{transform:rotateX(180deg);z-index:1}
+    .env-wrap.open .env-paper{transform:translateY(-55%)}
+    @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+
+    /* ---------- 2. question ---------- */
+    .q-emoji{font-size:74px;display:block;margin:6px auto;animation:beat 1.6s ease-in-out infinite;transition:transform .3s}
+    .q-buttons{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:26px;min-height:90px;flex-wrap:wrap}
+    #yesBtn{transition:transform .35s cubic-bezier(.3,1.6,.5,1),font-size .35s}
+    #noBtn{min-height:52px;padding:12px 26px;border-radius:999px;font-weight:800;font-size:16px;color:#fff;
+      background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);
+      backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+      transition:left .28s cubic-bezier(.3,1.4,.5,1),top .28s cubic-bezier(.3,1.4,.5,1),transform .2s;z-index:40;white-space:nowrap}
+    #noBtn.free{position:fixed}
+    .tease{min-height:28px;margin-top:18px;font-size:15px;font-weight:700;color:var(--gold)}
+    .tease.pop{animation:popIn .4s cubic-bezier(.3,1.6,.5,1)}
+    @keyframes popIn{from{transform:scale(.6);opacity:0}}
+
+    /* ---------- 3. yes celebration ---------- */
+    .big{font-size:96px;display:block;animation:beat 1.2s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(255,100,160,.8))}
+    .counter{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 6px}
+    .counter div{border-radius:18px;padding:14px 4px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18)}
+    .counter b{display:block;font:900 26px Nunito,sans-serif;color:#fff}
+    .counter small{font-size:12px;color:var(--rose)}
+
+    /* ---------- 4. reasons ---------- */
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 6px}
+    .flip{perspective:800px;aspect-ratio:1/1.05;cursor:pointer}
+    .flip-in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.3,1.3,.5,1);transform-style:preserve-3d}
+    .flip.on .flip-in{transform:rotateY(180deg)}
+    .face{position:absolute;inset:0;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+    .front{background:linear-gradient(150deg,rgba(255,255,255,.2),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.25)}
+    .front .n{font:900 34px Nunito,sans-serif;color:var(--gold)}
+    .front .e{font-size:28px;margin-top:2px}
+    .front small{font-size:11px;color:var(--rose);margin-top:6px;opacity:.8}
+    .back{transform:rotateY(180deg);background:linear-gradient(150deg,#fff6f9,#ffd9e7);color:var(--ink);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .back .e{font-size:26px}
+    .back p{font-size:13.5px;line-height:1.7;font-weight:600;margin-top:4px}
+    .progress{font-size:13px;color:var(--rose);margin:8px 0 14px}
+
+    /* ---------- 5. letter ---------- */
+    .paper{position:relative;text-align:left;color:var(--ink);border-radius:22px;padding:30px 22px 26px;
+      background:
+        repeating-linear-gradient(transparent 0 33px,rgba(214,120,160,.13) 33px 34px),
+        linear-gradient(180deg,#fffaf6,#fff1f2);
+      box-shadow:0 30px 80px rgba(0,0,0,.45);font-family:"Noto Serif Ethiopic","Noto Sans Ethiopic",serif}
+    .paper::before{content:"";position:absolute;inset:8px;border:1px dashed rgba(200,90,140,.25);border-radius:16px;pointer-events:none}
+    .paper .to{font-family:"Great Vibes",cursive;font-size:36px;color:#c2185b;line-height:1;margin-bottom:6px}
+    .paper h3{font-size:19px;color:#b0245f;margin-bottom:14px}
+    .paper p{font-size:15.5px;line-height:2.1;margin-bottom:14px;opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform .9s ease}
+    .paper p.show{opacity:1;transform:none}
+    .paper .sign{text-align:right;margin-top:10px}
+    .paper .sign span{display:block;font-family:"Great Vibes",cursive;font-size:40px;color:#c2185b;line-height:1.1}
+    .stamp{position:absolute;top:14px;right:16px;font-size:30px;transform:rotate(12deg);opacity:.9}
+
+    /* ---------- 6. finale ---------- */
+    .forever{font-size:clamp(54px,17vw,78px)}
+    .promise{margin:22px auto 0;max-width:340px}
+    .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+
+    .tap-heart{position:fixed;z-index:60;pointer-events:none;font-size:22px;animation:tap 1s ease-out forwards}
+    @keyframes tap{to{transform:translate(var(--x),var(--y)) scale(.4);opacity:0}}
+
+    @media (max-height:640px){.env-wrap{margin:20px auto 18px}.q-emoji{font-size:58px}.big{font-size:74px}}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <div class="hearts-bg" id="heartsBg" aria-hidden="true"></div>
+  <canvas id="fx"></canvas>
+
+  <main>
+    <!-- 1. Envelope -->
+    <section class="screen active" id="s-envelope">
+      <div class="kicker">✦ Six Months of Us ✦</div>
+      <h1><span class="shine">ሰላም <span data-name></span> 🥹</span></h1>
+      <p class="lead">ላንቺ ብቻ የሆነ ትንሽ ደብዳቤ ደርሶሻል…</p>
+      <div class="env-wrap" id="envelope" role="button" aria-label="ደብዳቤውን ክፈቺ">
+        <div class="env"></div>
+        <div class="env-paper">for you ♡</div>
+        <div class="env-front"></div>
+        <div class="env-flap"></div>
+        <div class="seal">💗</div>
+      </div>
+      <div class="hint">👆 ፖስታውን ንኪው</div>
+    </section>
+
+    <!-- 2. Question -->
+    <section class="screen" id="s-question">
+      <div class="glass">
+        <div class="kicker">አንድ በጣም አስፈላጊ ጥያቄ</div>
+        <span class="q-emoji" id="qEmoji">🥺</span>
+        <h2><span data-name></span>፣ ትወጂኛለሽ? 💞</h2>
+        <p class="muted">በደንብ አስበሽ መልሺ… 😌</p>
+        <div class="q-buttons" id="qButtons">
+          <button class="btn pulse" id="yesBtn">አዎ! ❤️</button>
+          <button id="noBtn">አይ 🙈</button>
+        </div>
+        <div class="tease" id="tease"></div>
+      </div>
+    </section>
+
+    <!-- 3. YES! -->
+    <section class="screen" id="s-yes">
+      <div class="glass">
+        <span class="big">💖</span>
+        <div class="script" style="font-size:44px;margin-top:6px">I knew it!</div>
+        <h2>አውቅ ነበር! 😂❤️</h2>
+        <p class="lead">አዎ እንደምትይ አውቅ ነበር፣ የኔ ቆንጆ።<br>እኔም እወድሻለሁ… ከምትገምቺው በላይ።</p>
+        <div class="counter" aria-label="አብረን ያሳለፍነው ጊዜ">
+          <div><b id="cMonths">6</b><small>ወራት</small></div>
+          <div><b id="cDays">0</b><small>ቀናት</small></div>
+          <div><b id="cHours">0</b><small>ሰዓታት</small></div>
+        </div>
+        <p class="muted">…እና እያንዳንዱ ሰከንድ ዋጋ ነበረው ✨</p>
+        <div class="row"><button class="btn pulse" data-go="s-reasons">ቀጥዪ 💫</button></div>
+      </div>
+    </section>
+
+    <!-- 4. Six reasons -->
+    <section class="screen" id="s-reasons">
+      <div class="kicker">ስድስት ወር · ስድስት ምክንያት</div>
+      <h2>ለምን እንደምወድሽ 💗</h2>
+      <p class="muted">እያንዳንዱን ካርድ ንኪው</p>
+      <div class="grid" id="grid"></div>
+      <div class="progress" id="progress">0 / 6</div>
+      <button class="btn" id="toLetter" style="opacity:.35;pointer-events:none">ደብዳቤዬን አንብቢ 💌</button>
+    </section>
+
+    <!-- 5. Letter -->
+    <section class="screen" id="s-letter">
+      <div class="paper" id="paper">
+        <div class="stamp">💌</div>
+        <div class="to">My love,</div>
+        <h3>ለህይወቴ ፍቅር ❤️</h3>
+        <p>ውዷ <span data-name></span>፣</p>
+        <p>ዛሬ ስድስት ወር ሞላን። ለሌሎች ስድስት ወር ብቻ ሊመስል ይችላል፤ ለእኔ ግን አንቺን ያገኘሁበት ቀን የህይወቴ ምርጥ ቀን ሆኖ ቀርቷል።</p>
+        <p>ንፁህ ልብሽን እወደዋለሁ። ለሰው ያለሽ ደግነት፣ የምታሳዪኝ እንክብካቤ፣ ቀኔን የሚያበራው ፈገግታሽ… ሁሉም ያንቺ ነገር ውብ ነው።</p>
+        <p>ቀልዶችሽንማ አትጠይቂኝ 😂 በጣም በደከመኝ ቀን እንኳን አንድ ቀልድሽ ብቻ ያስቀኛል። ሳቅሽ ለእኔ ሙዚቃ ነው።</p>
+        <p>ካንቺ ጋር ስሆን ሰላም ይሰማኛል፤ ቤቴ እንዳለሁ ይሰማኛል። አንቺ ከመጣሽ በኋላ ብዙ ነገሮች አዲስ ትርጉም አግኝተዋል።</p>
+        <p>ፍፁም እንደምሆን ቃል አልገባልሽም፤ ግን ሁሌም ልወድሽ፣ ላከብርሽ፣ ላስቅሽ እና ከጎንሽ ልቆም ቃል እገባልሻለሁ።</p>
+        <p>ይሄ ገና መጀመሪያችን ነው። ብዙ ቆንጆ ቀናት፣ ብዙ ሳቅ እና ብዙ ትዝታ ይጠብቁናል። 🌸</p>
+        <p><strong>አንቺ የህይወቴ ፍቅር ነሽ። መልካም 6 ወር፣ የኔ ቆንጆ! ❤️</strong></p>
+        <p class="sign">ከልቤ እወድሻለሁ፣<span data-from></span></p>
+      </div>
+      <div class="row" id="letterNext" style="opacity:0;transition:opacity 1s"><button class="btn pulse" data-go="s-final">አንድ የመጨረሻ ነገር… 🤍</button></div>
+    </section>
+
+    <!-- 6. Finale -->
+    <section class="screen" id="s-final">
+      <div class="glass">
+        <div class="script forever">Forever</div>
+        <h2 style="margin-top:14px">ይሄ ገና ጅማሬ ነው 💞</h2>
+        <p class="lead promise">ስድስት ወር አለፈ…<br>ቀጣዩን ስድስት፣ ቀጣዩን አመት፣ እና ከዛ በኋላ ያለውን ሁሉ ካንቺ ጋር ማሳለፍ እፈልጋለሁ።</p>
+        <p class="muted" style="margin-top:14px">ስክሪኑን የትም ንኪው… ፍቅሬ እንዲህ ነው የሚበዛው 😌💗</p>
+        <div class="row">
+          <button class="btn" id="burstBtn">ፍቅር ላኪልኝ 💘</button>
+          <button class="btn ghost" id="replayBtn">እንደገና ↻</button>
+        </div>
+        <div class="script" style="font-size:28px;margin-top:26px">— <span data-from></span></div>
+      </div>
+    </section>
+  </main>
+
+<script>
+/* ========= EDIT THESE ========= */
+const CONFIG = {
+  herName: "ፅዬ",              // her nickname shown on the site
+  fromName: "Dawit",           // your name for the signature
+  startDate: "2026-05-08T00:00:00" // the day you started (for the live counter)
+};
+/* ============================== */
+
+document.querySelectorAll("[data-name]").forEach(e => e.textContent = CONFIG.herName);
+document.querySelectorAll("[data-from]").forEach(e => e.textContent = CONFIG.fromName);
+
+const $ = id => document.getElementById(id);
+let current = "s-envelope";
+function go(id){
+  const old = $(current);
+  old.classList.remove("active"); old.classList.add("leaving");
+  setTimeout(()=>{
+    old.classList.remove("leaving");
+    $(id).classList.add("active");
+    current = id;
+    window.scrollTo(0,0);
+    if(id==="s-letter") revealLetter();
+    if(id==="s-final") { fireworks(); }
+  },420);
+}
+document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click",()=>go(b.dataset.go)));
+const vibrate = p => { try{ navigator.vibrate && navigator.vibrate(p) }catch(e){} };
+
+/* ---------- starry background ---------- */
+const sc=$("stars"), sx=sc.getContext("2d"); let stars=[];
+function sizeCanvas(c){ const r=Math.min(devicePixelRatio||1,2); c.width=innerWidth*r; c.height=innerHeight*r; c.getContext("2d").setTransform(r,0,0,r,0,0); }
+function initStars(){ sizeCanvas(sc); stars=Array.from({length:Math.round(innerWidth*innerHeight/5000)},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.3+.2,p:Math.random()*6.28,s:.01+Math.random()*.03})); }
+function drawStars(){ sx.clearRect(0,0,innerWidth,innerHeight);
+  for(const s of stars){ s.p+=s.s; sx.globalAlpha=.25+Math.sin(s.p)*.25+.25; sx.fillStyle="#ffe6f0"; sx.beginPath(); sx.arc(s.x,s.y,s.r,0,6.28); sx.fill(); }
+  requestAnimationFrame(drawStars); }
+initStars(); drawStars();
+
+/* ambient floating hearts */
+(function(){ const box=$("heartsBg"), sym=["💗","💕","🤍","💖","✨","🌸"];
+  for(let i=0;i<16;i++){ const h=document.createElement("span"); h.textContent=sym[i%sym.length];
+    h.style.left=Math.random()*100+"%"; h.style.setProperty("--d",(9+Math.random()*10)+"s");
+    h.style.setProperty("--delay",(-Math.random()*18)+"s"); h.style.setProperty("--s",(12+Math.random()*22)+"px");
+    h.style.setProperty("--b",(Math.random()<.4?2:0)+"px"); h.style.setProperty("--sway",(Math.random()*80-40)+"px"); box.appendChild(h);} })();
+
+/* ---------- particle FX (confetti + hearts) ---------- */
+const fc=$("fx"), fx=fc.getContext("2d"); let parts=[], running=false;
+sizeCanvas(fc);
+addEventListener("resize",()=>{initStars(); sizeCanvas(fc);});
+const COLORS=["#ff6fa5","#ffd89a","#ffffff","#ff9cc2","#ff3d7f","#ffc2d7"];
+function heartPath(c,x,y,s){ c.beginPath(); c.moveTo(x,y+s*.3); c.bezierCurveTo(x,y,x-s*.5,y,x-s*.5,y+s*.3); c.bezierCurveTo(x-s*.5,y+s*.6,x,y+s*.8,x,y+s); c.bezierCurveTo(x,y+s*.8,x+s*.5,y+s*.6,x+s*.5,y+s*.3); c.bezierCurveTo(x+s*.5,y,x,y,x,y+s*.3); c.fill(); }
+function burst(x,y,n=80,power=9){
+  for(let i=0;i<n;i++){ const a=Math.random()*6.28, v=Math.random()*power+2;
+    parts.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-3,g:.18,life:1,decay:.008+Math.random()*.01,
+      size:5+Math.random()*9,rot:Math.random()*6,vr:(Math.random()-.5)*.3,heart:Math.random()<.45,color:COLORS[i%COLORS.length]}); }
+  if(!running){running=true; requestAnimationFrame(loop);}
+}
+function loop(){ fx.clearRect(0,0,innerWidth,innerHeight);
+  parts=parts.filter(p=>p.life>0);
+  for(const p of parts){ p.vx*=.985; p.vy=p.vy*.985+p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.life-=p.decay;
+    fx.save(); fx.globalAlpha=Math.max(p.life,0); fx.fillStyle=p.color; fx.translate(p.x,p.y); fx.rotate(p.rot);
+    if(p.heart) heartPath(fx,0,-p.size/2,p.size*1.4); else fx.fillRect(-p.size/2,-p.size/4,p.size,p.size/2); fx.restore(); }
+  if(parts.length) requestAnimationFrame(loop); else running=false; }
+function fireworks(){ const w=innerWidth,h=innerHeight;
+  [[.5,.35],[.2,.25],[.8,.3],[.35,.55],[.65,.5]].forEach(([x,y],i)=>setTimeout(()=>{burst(w*x,h*y,70,10); vibrate(20);},i*280)); }
+function rain(n=120){ for(let i=0;i<n;i++) parts.push({x:Math.random()*innerWidth,y:-20-Math.random()*innerHeight*.6,vx:(Math.random()-.5)*2,vy:2+Math.random()*3,g:.04,life:1,decay:.004,size:6+Math.random()*8,rot:Math.random()*6,vr:(Math.random()-.5)*.2,heart:Math.random()<.5,color:COLORS[i%COLORS.length]});
+  if(!running){running=true;requestAnimationFrame(loop);} }
+
+/* tap anywhere for little hearts */
+addEventListener("pointerdown",e=>{
+  if(e.target.closest("#noBtn")) return;
+  for(let i=0;i<5;i++){ const h=document.createElement("span"); h.className="tap-heart";
+    h.textContent=["💗","💖","💕","✨"][i%4]; h.style.left=e.clientX-11+"px"; h.style.top=e.clientY-11+"px";
+    h.style.setProperty("--x",(Math.random()*120-60)+"px"); h.style.setProperty("--y",(-60-Math.random()*80)+"px");
+    document.body.appendChild(h); setTimeout(()=>h.remove(),1000);} });
+
+/* ---------- 1. envelope ---------- */
+$("envelope").addEventListener("click",function(){
+  if(this.classList.contains("open")) return;
+  this.classList.add("open"); vibrate(30);
+  const r=this.getBoundingClientRect(); setTimeout(()=>burst(r.left+r.width/2,r.top+r.height/3,60,7),500);
+  setTimeout(()=>go("s-question"),1700);
+});
+
+/* ---------- 2. the runaway NO ---------- */
+const noBtn=$("noBtn"), yesBtn=$("yesBtn"), tease=$("tease"), qEmoji=$("qEmoji");
+const teases=["እርግጠኛ ነሽ? 🤨","እንደገና አስቢበት 😏","አይሆንም እኮ! 😤","ልቤን እየሰበርሽው ነው 💔","እባክሽ… 🥺","ይሄ ቁልፍ አይሰራም 😂","ልትይዢው አትችይም 🏃‍♂️💨","አዎ ቁልፉ ይጠብቅሻል 👉❤️","ተስፋ ቁረጪ 😌","እሺ በቃ… አዎ በይ 😂❤️"];
+const faces=["🥺","🤨","😏","😤","💔","😭","😂","🙈","😌","🥹"];
+let dodges=0, yesScale=1;
+function dodge(e){
+  if(e){ e.preventDefault(); e.stopPropagation(); }
+  const now=Date.now(); if(now-(dodge.last||0)<180) return; dodge.last=now;
+  const r=noBtn.getBoundingClientRect();
+  if(!noBtn.classList.contains("free")){ noBtn.style.left=r.left+"px"; noBtn.style.top=r.top+"px"; noBtn.classList.add("free"); }
+  const m=16, w=r.width, h=r.height, yr=yesBtn.getBoundingClientRect();
+  let x,y,tries=0;
+  do{ x=m+Math.random()*(innerWidth-w-2*m); y=m+60+Math.random()*(innerHeight-h-2*m-60); tries++; }
+  while(tries<25 && ( (Math.abs(x-r.left)<w && Math.abs(y-r.top)<h*1.5) ||
+        (x<yr.right+12 && x+w>yr.left-12 && y<yr.bottom+12 && y+h>yr.top-12) ));
+  noBtn.style.left=x+"px"; noBtn.style.top=y+"px";
+  noBtn.style.transform=`rotate(${Math.random()*24-12}deg)`;
+  tease.textContent=teases[Math.min(dodges,teases.length-1)];
+  tease.classList.remove("pop"); void tease.offsetWidth; tease.classList.add("pop");
+  qEmoji.textContent=faces[dodges%faces.length];
+  dodges++; yesScale=Math.min(1+dodges*.09,1.7);
+  yesBtn.style.transform=`scale(${yesScale})`;
+  if(dodges>=7) noBtn.textContent=["አይ 🙈","አ…ይ? 🥲","😶"][dodges%3];
+  vibrate(15);
+}
+["pointerenter","pointerdown","touchstart","click","focus"].forEach(ev=>noBtn.addEventListener(ev,dodge,{passive:false}));
+/* desktop: flee when the cursor gets close */
+addEventListener("pointermove",e=>{
+  if(current!=="s-question"||e.pointerType!=="mouse") return;
+  const r=noBtn.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+  if(Math.hypot(e.clientX-cx,e.clientY-cy)<90) dodge();
+});
+function resetNo(){ noBtn.classList.remove("free"); noBtn.style.cssText=""; noBtn.textContent="አይ 🙈"; yesBtn.style.transform=""; dodges=0; tease.textContent=""; qEmoji.textContent="🥺"; }
+
+yesBtn.addEventListener("click",()=>{
+  vibrate([40,40,80]);
+  noBtn.style.opacity="0"; noBtn.style.pointerEvents="none";
+  const r=yesBtn.getBoundingClientRect(); burst(r.left+r.width/2,r.top+r.height/2,140,13);
+  setTimeout(rain,300);
+  go("s-yes"); startCounter();
+});
+
+/* ---------- 3. live counter ---------- */
+let counterTimer;
+function startCounter(){
+  const start=new Date(CONFIG.startDate);
+  const tick=()=>{ const now=new Date();
+    let months=(now.getFullYear()-start.getFullYear())*12+(now.getMonth()-start.getMonth());
+    if(now.getDate()<start.getDate()) months--;
+    const totalDays=Math.floor((now-start)/864e5), totalHours=Math.floor((now-start)/36e5);
+    $("cMonths").textContent=Math.max(months,0);
+    $("cDays").textContent=totalDays.toLocaleString();
+    $("cHours").textContent=totalHours.toLocaleString(); };
+  tick(); clearInterval(counterTimer); counterTimer=setInterval(tick,1000);
+}
+
+/* ---------- 4. six reasons ---------- */
+const reasons=[
+  ["🤍","ንፁህ ልብሽ — እንደ አንቺ ንፁህ ልብ ያለው ሰው አላየሁም።"],
+  ["😂","ቀልዶችሽ — ሁሌም ያስቁኛል፣ በከፋው ቀን እንኳን።"],
+  ["😊","ፈገግታሽ — አንዴ ስትስቂ አለሜ ሁሉ ያበራል።"],
+  ["🌸","ደግነትሽ — ለሁሉም ሰው ያለሽ ፍቅር ይገርመኛል።"],
+  ["🫶","እንክብካቤሽ — ካንቺ ጋር ስሆን ቤቴ ያለሁ ይመስለኛል።"],
+  ["💍","ራስሽ መሆንሽ — አንቺን ስለሆንሽ ብቻ እወድሻለሁ።"]
+];
+const grid=$("grid"); let flipped=new Set();
+reasons.forEach(([e,t],i)=>{
+  const d=document.createElement("div"); d.className="flip";
+  d.innerHTML=`<div class="flip-in"><div class="face front"><span class="n">${i+1}</span><span class="e">💌</span><small>ንኪው</small></div><div class="face back"><span class="e">${e}</span><p>${t}</p></div></div>`;
+  d.addEventListener("click",()=>{ d.classList.toggle("on"); vibrate(10);
+    if(!flipped.has(i)){ flipped.add(i); const r=d.getBoundingClientRect(); burst(r.left+r.width/2,r.top+r.height/2,25,5);
+      $("progress").textContent=`${flipped.size} / 6`;
+      if(flipped.size===6){ const b=$("toLetter"); b.style.opacity=1; b.style.pointerEvents="auto"; b.classList.add("pulse"); $("progress").textContent="6 / 6 — እና ሌሎች ብዙ ምክንያቶች… 💗"; } } });
+  grid.appendChild(d);
+});
+$("toLetter").addEventListener("click",()=>go("s-letter"));
+
+/* ---------- 5. letter reveal ---------- */
+function revealLetter(){
+  const ps=[...document.querySelectorAll("#paper p")];
+  ps.forEach(p=>p.classList.remove("show")); $("letterNext").style.opacity=0;
+  ps.forEach((p,i)=>setTimeout(()=>{ p.classList.add("show");
+    if(i>2) p.scrollIntoView({behavior:"smooth",block:"center"});
+    if(i===ps.length-1){ setTimeout(()=>{ $("letterNext").style.opacity=1; rain(60); },900); }
+  },600+i*1500));
+}
+
+/* ---------- 6. finale ---------- */
+$("burstBtn").addEventListener("click",e=>{ e.stopPropagation(); fireworks(); rain(80); });
+$("replayBtn").addEventListener("click",()=>{
+  resetNo(); flipped.clear(); grid.querySelectorAll(".flip").forEach(f=>f.classList.remove("on"));
+  $("progress").textContent="0 / 6"; const b=$("toLetter"); b.style.opacity=.35; b.style.pointerEvents="none"; b.classList.remove("pulse");
+  $("envelope").classList.remove("open"); go("s-envelope");
+});
+document.addEventListener("click",e=>{ if(current==="s-final" && !e.target.closest("button")) burst(e.clientX,e.clientY,30,6); });
+</script>
+</body>
+</html>
