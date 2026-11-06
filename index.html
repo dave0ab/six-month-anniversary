@@ -388,7 +388,7 @@ function startCounter(){
     let months=(now.getFullYear()-start.getFullYear())*12+(now.getMonth()-start.getMonth());
     if(now.getDate()<start.getDate()) months--;
     const totalDays=Math.floor((now-start)/864e5), totalHours=Math.floor((now-start)/36e5);
-    $("cMonths").textContent=Math.max(months,0);
+    $("cMonths").textContent=Math.max(months,6);
     $("cDays").textContent=totalDays.toLocaleString();
     $("cHours").textContent=totalHours.toLocaleString(); };
   tick(); clearInterval(counterTimer); counterTimer=setInterval(tick,1000);
