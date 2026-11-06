@@ -279,6 +279,7 @@ function go(id){
     $(id).classList.add("active");
     current = id;
     document.body.classList.toggle("lock", id==="s-question");
+    if(id!=="s-question" && noBtn.classList.contains("free")) noBtn.style.display="none"; else noBtn.style.display="";
     window.scrollTo(0,0);
     if(id==="s-letter") revealLetter();
     if(id==="s-final") { fireworks(); }
@@ -351,7 +352,7 @@ function dodge(e){
   if(e){ e.preventDefault(); e.stopPropagation(); }
   const now=Date.now(); if(now-(dodge.last||0)<180) return; dodge.last=now;
   const r=noBtn.getBoundingClientRect();
-  if(!noBtn.classList.contains("free")){ noBtn.style.left=r.left+"px"; noBtn.style.top=r.top+"px"; noBtn.classList.add("free"); }
+  if(!noBtn.classList.contains("free")){ document.body.appendChild(noBtn); noBtn.classList.add("free"); noBtn.style.left=r.left+"px"; noBtn.style.top=r.top+"px"; void noBtn.offsetWidth; }
   const vp=view(), m=20, w=r.width+12, h=r.height+12, yr=yesBtn.getBoundingClientRect();
   let x,y,tries=0;
   do{ x=vp.x+m+Math.random()*Math.max(vp.w-w-2*m,0); y=vp.y+m+40+Math.random()*Math.max(vp.h-h-2*m-40,0); tries++; }
@@ -385,7 +386,7 @@ function keepNoInside(){ if(!noBtn.classList.contains("free")) return;
 addEventListener("resize",keepNoInside);
 window.visualViewport&&visualViewport.addEventListener("resize",keepNoInside);
 window.visualViewport&&visualViewport.addEventListener("scroll",keepNoInside);
-function resetNo(){ noBtn.classList.remove("free"); noBtn.style.cssText=""; noBtn.textContent="አይ 🙈"; yesBtn.style.transform=""; dodges=0; tease.textContent=""; qEmoji.textContent="🥺"; }
+function resetNo(){ $("qButtons").appendChild(noBtn); noBtn.style.opacity=""; noBtn.style.pointerEvents=""; noBtn.classList.remove("free"); noBtn.style.cssText=""; noBtn.textContent="አይ 🙈"; yesBtn.style.transform=""; dodges=0; tease.textContent=""; qEmoji.textContent="🥺"; }
 
 yesBtn.addEventListener("click",()=>{
   vibrate([40,40,80]);
